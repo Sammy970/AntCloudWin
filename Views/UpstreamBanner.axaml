@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             xmlns:api="using:AntCloud.Core.Api"
+             x:Class="AntCloud.Views.UpstreamBanner"
+             x:DataType="api:UpstreamStatus"
+             IsVisible="{Binding HasBanner}">
+  <!-- Windows InfoBar: explains, in place, that AntCloud changed something and this app may need an update. -->
+  <Border x:Name="Bar" CornerRadius="6" BorderThickness="1" Padding="14,12">
+    <Grid ColumnDefinitions="Auto,*,Auto">
+      <c:StrokeIcon x:Name="Glyph" Data="{x:Static c:Icons.Warning}" Width="16" Height="16" VerticalAlignment="Top" Margin="0,2,12,0" />
+      <StackPanel Grid.Column="1" Spacing="2">
+        <TextBlock Classes="subtitle" Text="{Binding Title}" />
+        <TextBlock Classes="caption secondary wrap" Text="{Binding Message}" />
+      </StackPanel>
+      <Button Grid.Column="2" Classes="icon" VerticalAlignment="Top" Margin="8,-4,-6,0"
+              IsVisible="{Binding Dismissible}" Click="Dismiss" ToolTip.Tip="Dismiss">
+        <c:StrokeIcon Data="{x:Static c:Icons.Close}" Width="12" Height="12" Foreground="{DynamicResource TextSecondary}" />
+      </Button>
+    </Grid>
+  </Border>
+</UserControl>

@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             xmlns:v="using:AntCloud.Views"
+             x:Class="AntCloud.Views.CloudPcPane"
+             x:DataType="v:HomeModel">
+  <!-- Play-first: the drawn display shows the session state, the track shows progress, one next action. -->
+  <ScrollViewer>
+    <StackPanel Margin="40,16,40,40" HorizontalAlignment="Center" MaxWidth="560">
+      <v:UpstreamBanner Margin="0,0,0,24" />
+
+      <c:DisplayHero Phase="{Binding Session.Phase}" QueuePosition="{Binding Session.QueuePosition}"
+                     Width="340" HorizontalAlignment="Center" Margin="0,8,0,30" c:Reveal.Delay="0" />
+
+      <StackPanel x:Name="Status" Spacing="6" Margin="0,0,0,22" c:Reveal.Delay="0.08">
+        <TextBlock Classes="title" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Session.StatusText}" />
+        <TextBlock Classes="secondary wrap" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Session.DetailText}" />
+      </StackPanel>
+
+      <c:ConnectionTrack Phase="{Binding Session.Phase}" HorizontalAlignment="Center" Margin="0,0,0,28"
+                         Foreground="{DynamicResource TextPrimary}" Muted="{DynamicResource TrackOff}" c:Reveal.Delay="0.14" />
+
+      <!-- Actions -->
+      <StackPanel Spacing="10" HorizontalAlignment="Center" Margin="0,0,0,18" c:Reveal.Delay="0.2">
+        <Button x:Name="StartButton" Classes="accent primary" Width="220" HorizontalAlignment="Center"
+                IsVisible="{Binding Session.IsIdle}" IsDefault="True" Click="Start">
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <c:StrokeIcon Data="{x:Static c:Icons.Power}" Width="15" Height="15" StrokeWidth="2.4" />
+            <TextBlock Text="Start Cloud PC" Foreground="{Binding $parent[Button].Foreground}" />
+          </StackPanel>
+        </Button>
+
+        <StackPanel Spacing="10" IsVisible="{Binding Session.IsReady}">
+          <Button Classes="accent primary" Width="220" HorizontalAlignment="Center" Click="Launch">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <c:StrokeIcon Data="{x:Static c:Icons.Play}" Width="13" Height="13" Filled="True" StrokeWidth="2.4" />
+              <TextBlock Text="Launch Stream" Foreground="{Binding $parent[Button].Foreground}" />
+            </StackPanel>
+          </Button>
+          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+            <Button Classes="secondary" Content="Apply Settings to PC" Click="ApplySettings"
+                    ToolTip.Tip="Changes the cloud PC's display to your current resolution and aspect ratio." />
+            <Button Classes="secondary danger" Content="Shut Down" Click="ShutDown" />
+          </StackPanel>
+        </StackPanel>
+
+        <Button Classes="secondary danger" MinWidth="120" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                Content="{Binding Session.ShutDownLabel}" IsVisible="{Binding Session.ShowShutDown}" Click="ShutDown" />
+      </StackPanel>
+
+      <!-- Stream summary -->
+      <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center" c:Reveal.Delay="0.26">
+        <TextBlock Classes="secondary num" Text="{Binding Settings.Summary}" VerticalAlignment="Center" />
+        <HyperlinkButton Content="Change…" Padding="0" VerticalAlignment="Center" Click="EditSettings" />
+      </StackPanel>
+
+      <!-- Moonlight missing -->
+      <Border x:Name="MoonlightMissing" Margin="0,28,0,0" CornerRadius="6" BorderThickness="1" Padding="14,12" MaxWidth="460"
+              Background="#14F7A325" BorderBrush="#40F7A325">
+        <Grid ColumnDefinitions="Auto,*">
+          <c:StrokeIcon Data="{x:Static c:Icons.Warning}" Foreground="{StaticResource WarnBrush}" VerticalAlignment="Top" Margin="0,2,12,0" />
+          <StackPanel Grid.Column="1" Spacing="4">
+            <TextBlock Classes="subtitle" Text="Moonlight is required to stream" />
+            <TextBlock x:Name="MoonlightHint" Classes="caption secondary wrap" />
+            <HyperlinkButton Content="Get Moonlight" Padding="0" Click="GetMoonlight" />
+          </StackPanel>
+        </Grid>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

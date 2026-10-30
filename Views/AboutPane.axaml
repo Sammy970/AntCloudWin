@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             xmlns:v="using:AntCloud.Views"
+             x:Class="AntCloud.Views.AboutPane">
+  <!-- Who made the app, its version and what it stands on. -->
+  <ScrollViewer>
+    <StackPanel Margin="40,8,40,40" Width="460" HorizontalAlignment="Center" Spacing="20">
+      <StackPanel Spacing="12" HorizontalAlignment="Center" c:Reveal.Delay="0">
+        <Border Width="88" Height="88" CornerRadius="20" ClipToBounds="True" HorizontalAlignment="Center" BoxShadow="0 8 22 0 #8C4A86E8">
+          <Image Source="/Assets/AntCloud.png" />
+        </Border>
+        <StackPanel Spacing="3">
+          <TextBlock x:Name="AppName" Classes="title" HorizontalAlignment="Center" FontSize="22" />
+          <TextBlock x:Name="Version" Classes="secondary num" HorizontalAlignment="Center" />
+        </StackPanel>
+        <Border CornerRadius="12" Padding="10,4" Background="#264A86E8" HorizontalAlignment="Center">
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <c:StrokeIcon Data="{x:Static c:Icons.CheckCircle}" Width="13" Height="13" Foreground="{StaticResource AntBlue}" StrokeWidth="2.4" />
+            <TextBlock x:Name="Matches" Classes="caption" FontWeight="SemiBold" Foreground="{StaticResource AntBlue}" />
+          </StackPanel>
+        </Border>
+      </StackPanel>
+
+      <!-- Maker -->
+      <Border Classes="card" Padding="18" c:Reveal.Delay="0.08">
+        <StackPanel Spacing="16">
+          <Grid ColumnDefinitions="Auto,*">
+            <Border x:Name="AvatarFrame" Width="64" Height="64" CornerRadius="32" ClipToBounds="True">
+              <Border.Background>
+                <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+                  <GradientStop Color="#6A9EF0" Offset="0" />
+                  <GradientStop Color="#4A86E8" Offset="1" />
+                </LinearGradientBrush>
+              </Border.Background>
+              <Panel>
+                <TextBlock x:Name="MakerInitial" FontSize="28" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Image x:Name="MakerAvatar" Stretch="UniformToFill" />
+              </Panel>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="14,0,0,0" Spacing="3" VerticalAlignment="Center">
+              <TextBlock Classes="caption secondary" Text="MADE BY" FontWeight="SemiBold" LetterSpacing="1.2" />
+              <TextBlock x:Name="MakerName" FontSize="18" FontWeight="Bold" />
+              <TextBlock Classes="caption secondary wrap" Text="Designed and built this app, from reverse-engineering AntCloud to the last animation." />
+            </StackPanel>
+          </Grid>
+          <UniformGrid Columns="2" ColumnSpacing="10">
+            <v:LinkButton Title="GitHub" Detail="@Sammy970" Icon="{x:Static c:Icons.Code}" Url="https://github.com/Sammy970" />
+            <v:LinkButton Title="X" Detail="@Sammy_970" Icon="{x:Static c:Icons.At}" Url="https://x.com/Sammy_970" />
+          </UniformGrid>
+        </StackPanel>
+      </Border>
+
+      <!-- Project -->
+      <Border Classes="card" Padding="4" c:Reveal.Delay="0.16">
+        <StackPanel>
+          <v:LinkButton x:Name="Source" Title="Source code" Icon="{x:Static c:Icons.Braces}" Tile="True" />
+          <Border Classes="divider" Margin="52,0,12,0" />
+          <v:LinkButton Title="Streaming by Moonlight" Detail="Open-source game streaming (GPLv3)" Icon="{x:Static c:Icons.Play}"
+                        Url="https://moonlight-stream.org" Tile="True" />
+        </StackPanel>
+      </Border>
+
+      <TextBlock Classes="caption tertiary" TextAlignment="Center" HorizontalAlignment="Center" c:Reveal.Delay="0.22"
+                 Text="Unofficial. Not made, endorsed or supported by AntCloud.&#x0a;&quot;AntCloud&quot; and its logo belong to their owners." />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

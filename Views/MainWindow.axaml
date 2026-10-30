@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AntCloud.Views.MainWindow"
+        Title="AntCloud"
+        Icon="/Assets/AntCloud.ico"
+        Width="1080" Height="760" MinWidth="820" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="40"
+        TransparencyLevelHint="Mica, AcrylicBlur, None"
+        Background="{DynamicResource WindowBackground}"
+        FontFamily="{StaticResource AppFont}">
+  <Panel>
+    <TransitioningContentControl x:Name="Root">
+      <TransitioningContentControl.PageTransition>
+        <CrossFade Duration="0:0:0.35" />
+      </TransitioningContentControl.PageTransition>
+    </TransitioningContentControl>
+
+    <!-- Title bar: the system draws the caption buttons; we draw the icon and name. -->
+    <StackPanel x:Name="TitleBar" Orientation="Horizontal" Height="40" Spacing="10" Margin="16,0"
+                VerticalAlignment="Top" HorizontalAlignment="Left" IsHitTestVisible="False">
+      <Image Source="/Assets/AntCloud.png" Width="16" Height="16" VerticalAlignment="Center" />
+      <TextBlock Text="AntCloud" FontSize="12" VerticalAlignment="Center" />
+    </StackPanel>
+
+    <!-- Notices: a Windows content dialog over a dimmed window. -->
+    <Panel x:Name="NoticeLayer" IsVisible="False" Background="{DynamicResource ScrimBrush}">
+      <Border x:Name="NoticeCard" Width="420" HorizontalAlignment="Center" VerticalAlignment="Center"
+              CornerRadius="8" BorderThickness="1" ClipToBounds="True"
+              Background="{DynamicResource DialogBackground}" BorderBrush="{DynamicResource CardBorder}">
+        <StackPanel>
+          <StackPanel Margin="24,24,24,24" Spacing="12">
+            <TextBlock x:Name="NoticeTitle" Classes="title" />
+            <TextBlock x:Name="NoticeMessage" Classes="wrap" LineHeight="20" />
+          </StackPanel>
+          <Border Background="{DynamicResource SubtleFill}" BorderBrush="{DynamicResource CardBorder}" BorderThickness="0,1,0,0" Padding="24">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+              <Button x:Name="NoticeSecondary" Classes="secondary" MinWidth="120" HorizontalContentAlignment="Center" IsVisible="False" />
+              <Button x:Name="NoticeOk" Classes="accent secondary" MinWidth="120" HorizontalContentAlignment="Center" Content="OK" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+    </Panel>
+  </Panel>
+</Window>

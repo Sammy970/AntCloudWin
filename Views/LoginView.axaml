@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             xmlns:v="using:AntCloud.Views"
+             x:Class="AntCloud.Views.LoginView">
+  <Panel>
+    <c:Aurora />
+
+    <Grid x:Name="Layout" ColumnDefinitions="*,Auto,Auto,*" Margin="40,56,40,40" VerticalAlignment="Center">
+      <!-- Hero: hidden when the window is too narrow for both. -->
+      <StackPanel x:Name="Hero" Grid.Column="1" Width="340" Spacing="22" VerticalAlignment="Center" Margin="0,0,56,0">
+        <Border Width="64" Height="64" CornerRadius="15" ClipToBounds="True" HorizontalAlignment="Left" c:Reveal.Delay="0"
+                BoxShadow="0 6 22 0 #994A86E8">
+          <Image Source="/Assets/AntCloud.png" />
+        </Border>
+        <StackPanel Spacing="10" c:Reveal.Delay="0.08">
+          <TextBlock Classes="display" Text="Your gaming PC,&#x0a;in the cloud." />
+          <TextBlock Classes="secondary wrap" FontSize="18" LineHeight="25"
+                     Text="Start it, stream it, play. AntCloud on your PC, one click at a time." />
+        </StackPanel>
+        <StackPanel Spacing="10">
+          <v:FeatureRow Icon="{x:Static c:Icons.Power}" Text="One click to start your cloud PC" c:Reveal.Delay="0.16" />
+          <v:FeatureRow Icon="{x:Static c:Icons.Link}" Text="Pairs with Moonlight on its own" c:Reveal.Delay="0.22" />
+          <v:FeatureRow Icon="{x:Static c:Icons.Tv}" Text="Up to 4K and 120 FPS" c:Reveal.Delay="0.28" />
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Sign-in card. -->
+      <Border x:Name="Card" Grid.Column="2" Width="360" Padding="28" CornerRadius="12" VerticalAlignment="Center"
+              Background="{DynamicResource OverlayCard}" BorderBrush="{DynamicResource CardBorder}" BorderThickness="1"
+              c:Reveal.Delay="0.18">
+        <StackPanel Spacing="18">
+          <v:UpstreamBanner />
+
+          <StackPanel Spacing="4" HorizontalAlignment="Center">
+            <TextBlock Classes="title" Text="Sign in" HorizontalAlignment="Center" />
+            <TextBlock Classes="secondary" Text="Use your AntCloud account." HorizontalAlignment="Center" />
+          </StackPanel>
+
+          <c:Segmented x:Name="Method" Options="Email=email,Phone=phone" SelectedValue="email" HorizontalAlignment="Center" />
+
+          <!-- Email -->
+          <StackPanel x:Name="EmailForm" Spacing="10">
+            <TextBox x:Name="Email" Classes="large" Watermark="Email" />
+            <TextBox x:Name="Password" Classes="large revealPasswordButton" Watermark="Password" PasswordChar="●" />
+            <HyperlinkButton x:Name="Forgot" Content="Forgot password?" HorizontalAlignment="Right" Padding="0" Click="ForgotPassword" />
+          </StackPanel>
+
+          <!-- Phone -->
+          <StackPanel x:Name="PhoneForm" Spacing="10" IsVisible="False">
+            <TextBox x:Name="Phone" Classes="large" Watermark="Phone number" />
+            <TextBlock x:Name="PhoneHint" Classes="caption secondary" Text="Indian numbers can skip the +91." />
+            <TextBox x:Name="Otp" Classes="large" Watermark="One-time code" IsVisible="False" />
+            <HyperlinkButton x:Name="DifferentNumber" Content="Use a different number" HorizontalAlignment="Right" Padding="0"
+                             IsVisible="False" Click="UseDifferentNumber" />
+          </StackPanel>
+
+          <Button x:Name="Submit" Classes="glow" IsDefault="True" Click="SubmitClicked">
+            <Panel>
+              <TextBlock x:Name="SubmitText" Text="Sign In" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Center" />
+              <ProgressBar x:Name="Busy" IsIndeterminate="True" IsVisible="False" Width="80" MinWidth="0"
+                           Foreground="White" Background="#40FFFFFF" VerticalAlignment="Center" />
+            </Panel>
+          </Button>
+
+          <Grid x:Name="Message" ColumnDefinitions="Auto,*" IsVisible="False">
+            <c:StrokeIcon x:Name="MessageIcon" Width="16" Height="16" VerticalAlignment="Top" Margin="0,1,8,0" />
+            <TextBlock x:Name="MessageText" Grid.Column="1" Classes="wrap" />
+          </Grid>
+
+          <Border Classes="divider" />
+
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
+            <TextBlock Classes="secondary" Text="New to AntCloud?" VerticalAlignment="Center" />
+            <HyperlinkButton Content="Create an account" Padding="0" Click="CreateAccount" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Panel>
+</UserControl>

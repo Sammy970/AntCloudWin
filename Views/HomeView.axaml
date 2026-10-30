@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             xmlns:v="using:AntCloud.Views"
+             x:Class="AntCloud.Views.HomeView"
+             x:DataType="v:HomeModel">
+  <Grid ColumnDefinitions="292,*">
+
+    <!-- Sidebar, as in Windows 11 Settings: account on top, navigation, plan time at the bottom. -->
+    <DockPanel Margin="12,44,12,12">
+      <Grid DockPanel.Dock="Top" ColumnDefinitions="Auto,*,Auto" Margin="6,6,0,18">
+        <Border x:Name="Avatar" Width="52" Height="52" CornerRadius="26">
+          <Border.Background>
+            <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+              <GradientStop Color="#6A9EF0" Offset="0" />
+              <GradientStop Color="#4A86E8" Offset="1" />
+            </LinearGradientBrush>
+          </Border.Background>
+          <TextBlock x:Name="Initial" FontSize="22" FontWeight="SemiBold" Foreground="White"
+                     HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" Spacing="1">
+          <TextBlock x:Name="ProfileName" Classes="subtitle" TextTrimming="CharacterEllipsis" />
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <c:StrokeIcon x:Name="PlanIcon" Width="11" Height="11" Filled="True" StrokeWidth="1" Foreground="{DynamicResource TextSecondary}" />
+            <TextBlock x:Name="Plan" Classes="caption secondary" />
+          </StackPanel>
+        </StackPanel>
+        <Button Grid.Column="2" Classes="icon" VerticalAlignment="Center" ToolTip.Tip="Account">
+          <c:StrokeIcon Data="{x:Static c:Icons.More}" Width="16" Height="16" StrokeWidth="3.2" Foreground="{DynamicResource TextPrimary}" />
+          <Button.Flyout>
+            <MenuFlyout Placement="BottomEdgeAlignedRight">
+              <MenuItem x:Name="EmailItem" IsEnabled="False" />
+              <Separator />
+              <MenuItem Header="Refresh account" Click="RefreshAccount" />
+              <MenuItem Header="Plans &amp; pricing" Click="OpenPlans" />
+              <Separator />
+              <MenuItem Header="Sign out" Click="SignOut" />
+            </MenuFlyout>
+          </Button.Flyout>
+        </Button>
+      </Grid>
+
+      <!-- Plan time left. -->
+      <Border x:Name="Usage" DockPanel.Dock="Bottom" Classes="card" Padding="14,12">
+        <StackPanel Spacing="7">
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBlock Classes="caption secondary" Text="Time left" />
+            <TextBlock x:Name="TimeLeft" Grid.Column="1" Classes="caption num" FontWeight="SemiBold" />
+          </Grid>
+          <ProgressBar x:Name="TimeBar" Minimum="0" Maximum="1" MinWidth="0" />
+          <TextBlock x:Name="Renews" Classes="caption tertiary" />
+        </StackPanel>
+      </Border>
+
+      <ListBox x:Name="Nav" Classes="nav" SelectionMode="AlwaysSelected">
+        <ListBoxItem Tag="cloud">
+          <v:NavItem Icon="{x:Static c:Icons.Monitor}" Text="Cloud PC" x:Name="CloudNav" />
+        </ListBoxItem>
+        <ListBoxItem Tag="stream">
+          <v:NavItem Icon="{x:Static c:Icons.Sliders}" Text="Stream" />
+        </ListBoxItem>
+        <ListBoxItem Tag="network">
+          <v:NavItem Icon="{x:Static c:Icons.Gauge}" Text="Network" />
+        </ListBoxItem>
+        <ListBoxItem Tag="about">
+          <v:NavItem Icon="{x:Static c:Icons.Info}" Text="About" />
+        </ListBoxItem>
+      </ListBox>
+    </DockPanel>
+
+    <!-- Content: the layered surface with a rounded top-left corner, as in WinUI's navigation view. -->
+    <Border Grid.Column="1" Margin="0,40,0,0" CornerRadius="8,0,0,0" BorderThickness="1,1,0,0"
+            Background="{DynamicResource ContentBackground}" BorderBrush="{DynamicResource CardBorder}" ClipToBounds="True">
+      <DockPanel>
+        <TextBlock x:Name="PageTitle" DockPanel.Dock="Top" Classes="pageTitle" Margin="40,28,40,4" />
+        <TransitioningContentControl x:Name="PaneHost">
+          <TransitioningContentControl.PageTransition>
+            <CompositePageTransition>
+              <CrossFade Duration="0:0:0.18" />
+            </CompositePageTransition>
+          </TransitioningContentControl.PageTransition>
+        </TransitioningContentControl>
+      </DockPanel>
+    </Border>
+  </Grid>
+</UserControl>

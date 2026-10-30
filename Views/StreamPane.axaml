@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             xmlns:v="using:AntCloud.Views"
+             x:Class="AntCloud.Views.StreamPane"
+             x:DataType="v:HomeModel">
+  <!-- Settings rows, as in the Windows Settings app. Locked while pairing or streaming. -->
+  <ScrollViewer>
+    <StackPanel Margin="40,8,40,40" MaxWidth="1000">
+      <Border Classes="row" MinHeight="0" Padding="16,12" Margin="0,8,0,4" IsVisible="{Binding Session.IsStreamingOrPairing}">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <c:StrokeIcon Data="{x:Static c:Icons.Lock}" Foreground="{DynamicResource TextSecondary}" />
+          <TextBlock Classes="secondary" Text="Settings are locked while you're streaming." />
+        </StackPanel>
+      </Border>
+
+      <StackPanel x:Name="Rows" IsEnabled="{Binding !Session.IsStreamingOrPairing}">
+        <TextBlock Classes="section" Text="Display" />
+        <v:SettingRow Icon="{x:Static c:Icons.Monitor}" Title="Resolution" Detail="{Binding Settings.PixelSize, StringFormat='Streams at {0}.'}">
+          <c:Segmented Options="720p=720,1080p=1080,1440p=1440,4K=2160" SelectedValue="{Binding Settings.Resolution}" />
+        </v:SettingRow>
+        <v:SettingRow Icon="{x:Static c:Icons.Tv}" Title="Aspect ratio" Detail="Match your screen. 16:10 fills most laptop screens with tall displays, like the Surface and many 2-in-1s.">
+          <c:Segmented x:Name="Aspect" Options="16:9=Wide,16:10=Tall,21:9=Ultrawide" />
+        </v:SettingRow>
+        <v:SettingRow Icon="{x:Static c:Icons.Keyboard}" Title="Fullscreen" Detail="Also sends shortcuts like Alt+Tab and the Windows key to the cloud PC.">
+          <ToggleSwitch IsChecked="{Binding Settings.Fullscreen}" OnContent="On" OffContent="Off" />
+        </v:SettingRow>
+
+        <TextBlock Classes="section" Text="Performance" />
+        <v:SettingRow Icon="{x:Static c:Icons.Gauge}" Title="Frame rate" Detail="Higher feels smoother; 120 needs a 120 Hz screen to show.">
+          <c:Segmented Options="30=30,60=60,120=120" SelectedValue="{Binding Settings.Fps}" />
+        </v:SettingRow>
+        <v:SettingRow Icon="{x:Static c:Icons.Sliders}" Title="Bitrate"
+                      Detail="{Binding Settings.GigabytesPerHour, StringFormat='Uses up to {0} GB of data per hour. Lower it if the picture stutters.'}">
+          <ComboBox x:Name="Bitrate" MinWidth="120">
+            <ComboBoxItem Content="5 Mbps" Tag="5000" />
+            <ComboBoxItem Content="10 Mbps" Tag="10000" />
+            <ComboBoxItem Content="20 Mbps" Tag="20000" />
+            <ComboBoxItem Content="30 Mbps" Tag="30000" />
+            <ComboBoxItem Content="40 Mbps" Tag="40000" />
+            <ComboBoxItem Content="50 Mbps" Tag="50000" />
+          </ComboBox>
+        </v:SettingRow>
+
+        <TextBlock Classes="section" Text="Codec &amp; audio" />
+        <v:SettingRow Icon="{x:Static c:Icons.Tv}" Title="HEVC (H.265)" Detail="Sharper picture at the same bitrate. Turn off if your PC's graphics can't decode it.">
+          <ToggleSwitch IsChecked="{Binding Settings.Hevc}" OnContent="On" OffContent="Off" />
+        </v:SettingRow>
+        <v:SettingRow Icon="{x:Static c:Icons.Antenna}" Title="Forward microphone" Detail="Sends your PC's microphone to the cloud PC, for voice chat in games.">
+          <ToggleSwitch IsChecked="{Binding Settings.Microphone}" OnContent="On" OffContent="Off" />
+        </v:SettingRow>
+
+        <TextBlock Classes="section" Text="Overlay" />
+        <v:SettingRow Icon="{x:Static c:Icons.Info}" Title="Ctrl+Alt+A during a stream"
+                      Detail="Shows time left, connection health and Moonlight's shortcuts over the stream. Warnings appear on their own.">
+          <ToggleSwitch x:Name="Overlay" OnContent="On" OffContent="Off" />
+        </v:SettingRow>
+
+        <TextBlock Classes="section" Text="Developer" />
+        <v:SettingRow Icon="{x:Static c:Icons.Code}" Title="Skip night-plan checks"
+                      Detail="For testing. Skips the app's own hours check before starting and its 9:35 AM IST cutoff. AntCloud still enforces plan hours on its servers.">
+          <ToggleSwitch x:Name="SkipNightPlan" OnContent="On" OffContent="Off" />
+        </v:SettingRow>
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
