@@ -1,0 +1,95 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="using:AntCloud.Controls"
+             x:Class="AntCloud.Views.ControllersPane">
+  <!-- Check a controller before playing: the same check as the Mac app's Controllers pane. -->
+  <ScrollViewer>
+    <StackPanel Margin="40,8,40,40" MaxWidth="680" HorizontalAlignment="Left" Spacing="16">
+      <StackPanel Spacing="4" c:Reveal.Delay="0">
+        <TextBlock Classes="title" Text="Check your controller" />
+        <TextBlock Classes="secondary wrap"
+                   Text="Press its buttons and move the sticks: everything that reaches your PC lights up here, so you know it'll work before you start the cloud PC." />
+      </StackPanel>
+
+      <ComboBox x:Name="Picker" MinWidth="260" IsVisible="False" />
+
+      <!-- Controller -->
+      <Border x:Name="ControllerCard" Classes="card" Padding="20" IsVisible="False" c:Reveal.Delay="0.06">
+        <StackPanel Spacing="16">
+          <Grid ColumnDefinitions="Auto,*,Auto">
+            <Border Width="36" Height="36" CornerRadius="9" Background="{StaticResource AntBlue}" VerticalAlignment="Top">
+              <c:StrokeIcon Data="{x:Static c:Icons.Gamepad}" Width="20" Height="20" Foreground="White" />
+            </Border>
+            <StackPanel Grid.Column="1" Margin="12,0" Spacing="2">
+              <TextBlock x:Name="ControllerName" Classes="subtitle" />
+              <TextBlock x:Name="ControllerDetails" Classes="caption secondary num" />
+            </StackPanel>
+            <Border x:Name="Verdict" Grid.Column="2" CornerRadius="12" Padding="10,4" VerticalAlignment="Top">
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <c:StrokeIcon x:Name="VerdictIcon" Width="13" Height="13" StrokeWidth="2.4" />
+                <TextBlock x:Name="VerdictText" Classes="caption" FontWeight="SemiBold" />
+              </StackPanel>
+            </Border>
+          </Grid>
+
+          <c:GamepadDrawing x:Name="Drawing" MaxWidth="460" HorizontalAlignment="Center" />
+
+          <TextBlock x:Name="NoLive" Classes="secondary wrap" IsVisible="False"
+                     Text="Windows doesn't give live input for this controller (it isn't an XInput controller), so its buttons can't light up here. Moonlight reads it directly when you stream." />
+
+          <!-- The exact numbers, for checking stick drift and how far the triggers travel. -->
+          <Border x:Name="Readout" CornerRadius="8" Padding="0,10" Background="{DynamicResource SubtleFill}">
+            <Grid ColumnDefinitions="*,*,*">
+              <StackPanel HorizontalAlignment="Center" Spacing="2" ToolTip.Tip="Sticks at rest should read close to +0.00. A value that stays away from zero is stick drift.">
+                <TextBlock x:Name="LeftStick" FontFamily="Consolas, Menlo, monospace" HorizontalAlignment="Center" />
+                <TextBlock Classes="caption secondary" Text="Left stick" HorizontalAlignment="Center" />
+              </StackPanel>
+              <StackPanel Grid.Column="1" HorizontalAlignment="Center" Spacing="2">
+                <TextBlock x:Name="RightStick" FontFamily="Consolas, Menlo, monospace" HorizontalAlignment="Center" />
+                <TextBlock Classes="caption secondary" Text="Right stick" HorizontalAlignment="Center" />
+              </StackPanel>
+              <StackPanel Grid.Column="2" HorizontalAlignment="Center" Spacing="2">
+                <TextBlock x:Name="Triggers" FontFamily="Consolas, Menlo, monospace" HorizontalAlignment="Center" />
+                <TextBlock Classes="caption secondary" Text="Triggers" HorizontalAlignment="Center" />
+              </StackPanel>
+            </Grid>
+          </Border>
+
+          <Button x:Name="Vibrate" Classes="secondary" Click="VibrateClicked">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <c:StrokeIcon Data="{x:Static c:Icons.Antenna}" Width="15" Height="15" />
+              <TextBlock Text="Test vibration" />
+            </StackPanel>
+          </Button>
+
+          <Border x:Name="Advice" CornerRadius="6" BorderThickness="1" Padding="14,12" IsVisible="False"
+                  Background="#14F7A325" BorderBrush="#40F7A325">
+            <StackPanel Spacing="4">
+              <TextBlock Classes="subtitle" Text="Moonlight doesn't know this controller" />
+              <TextBlock Classes="caption secondary wrap"
+                         Text="If it has a mode switch, try its X-input or Xbox mode: most controllers then pass as an Xbox controller, which works everywhere. A USB cable or the controller's own dongle often helps too." />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+
+      <!-- No controller -->
+      <Border x:Name="EmptyCard" Classes="card" Padding="28" c:Reveal.Delay="0.06">
+        <StackPanel Spacing="16" HorizontalAlignment="Center">
+          <c:GamepadDrawing Dimmed="True" MaxWidth="340" HorizontalAlignment="Center" />
+          <TextBlock Classes="subtitle" Text="No controller connected" HorizontalAlignment="Center" />
+          <TextBlock Classes="secondary wrap" TextAlignment="Center" MaxWidth="440" HorizontalAlignment="Center"
+                     Text="Turn on your controller and connect it with Bluetooth, a USB cable or its dongle. It shows up here the moment Windows sees it." />
+          <Button Classes="secondary" Content="Open Bluetooth settings" HorizontalAlignment="Center" Click="OpenBluetooth" />
+        </StackPanel>
+      </Border>
+
+      <!-- Other gamepads -->
+      <Border x:Name="OthersCard" Classes="card" IsVisible="False">
+        <StackPanel x:Name="Others" Spacing="10">
+          <TextBlock Classes="subtitle" Text="Also connected" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

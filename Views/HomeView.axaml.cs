@@ -27,6 +27,7 @@ partial class HomeView : UserControl
             ["cloud"] = ("Cloud PC", () => new CloudPcPane(model, () => Select("stream"))),
             ["stream"] = ("Stream", () => new StreamPane(model)),
             ["network"] = ("Network", () => new NetworkPane(model)),
+            ["controllers"] = ("Controllers", () => new ControllersPane()),
             ["about"] = ("About", () => new AboutPane()),
         };
         Nav.SelectionChanged += (_, _) => Show();
@@ -52,6 +53,13 @@ partial class HomeView : UserControl
     {
         foreach (var item in Nav.Items.OfType<ListBoxItem>())
             if (item.Tag as string == pane) Nav.SelectedItem = item;
+    }
+
+    /// <summary>Screenshot mode: the Controllers pane with a sample controller mid-press.</summary>
+    public void ShowControllerSample()
+    {
+        Select("controllers");
+        if (made.TryGetValue("controllers", out var pane) && pane is ControllersPane controllers) controllers.ShowSample();
     }
 
     private void Show()

@@ -188,8 +188,9 @@ partial class MainWindow : Window
         };
         if (phases.TryGetValue(parts[0], out var phase)) home.Session.PreviewPhase(phase, phase == Phase.Queued ? 3 : null);
         if (Root.Content is HomeView view)
-            foreach (var pane in new[] { "stream", "network", "about" })
+            foreach (var pane in new[] { "stream", "network", "controllers", "about" })
                 if (parts.Contains(pane)) view.Select(pane);
+        if (parts.Contains("sample") && Root.Content is HomeView sampleView) sampleView.ShowControllerSample();
         if (parts.Contains("overlay")) StreamOverlayWindow.Shared.Begin("socket.antcloud.co", auth.Profile);
         if (parts.Contains("notice")) Enqueue("Servers at Capacity", "All servers are currently busy. Please wait 5–10 minutes and try again.");
     }

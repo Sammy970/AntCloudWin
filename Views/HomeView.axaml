@@ -63,6 +63,9 @@
         <ListBoxItem Tag="network">
           <v:NavItem Icon="{x:Static c:Icons.Gauge}" Text="Network" />
         </ListBoxItem>
+        <ListBoxItem Tag="controllers">
+          <v:NavItem Icon="{x:Static c:Icons.Gamepad}" Text="Controllers" />
+        </ListBoxItem>
         <ListBoxItem Tag="about">
           <v:NavItem Icon="{x:Static c:Icons.Info}" Text="About" />
         </ListBoxItem>
