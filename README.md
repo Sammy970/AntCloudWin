@@ -108,6 +108,25 @@ A drawn monitor shows the answer, the track below it shows how far along you are
   </tr>
 </table>
 
+## Check your controller
+
+<table>
+  <tr>
+    <td width="42%" valign="top">
+      <p>The <b>Controllers</b> page shows whether a controller will work before you start the cloud PC.</p>
+      <ul>
+        <li><b>A drawn controller that mirrors yours:</b> buttons light up as you press them, the sticks move with yours and the triggers fill as you pull them. Labels follow the controller: A B X Y, or ✕ ○ □ △ on PlayStation.</li>
+        <li><b>Ready to play, or not:</b> every USB, Bluetooth or dongle gamepad is checked against the controllers Moonlight recognises on Windows, with what to try if it isn't recognised.</li>
+        <li><b>The details:</b> its ID, connection, battery, exact stick and trigger values (handy for spotting stick drift), and a vibration test.</li>
+      </ul>
+      <p><sub>Live input works for XInput controllers (Xbox and most others); other gamepads are listed with their verdict.</sub></p>
+    </td>
+    <td width="58%" valign="top">
+      <picture><source media="(prefers-color-scheme: dark)" srcset=".github/screenshots/dark-controllers.png"><img src=".github/screenshots/light-controllers.png" width="100%" alt="Controllers page: a drawn Xbox controller with the A button and right bumper lit, the right trigger at 70%, the controller's ID and a Ready to play badge"></picture>
+    </td>
+  </tr>
+</table>
+
 ## An overlay while you play
 
 <table>
@@ -175,6 +194,8 @@ AntCloud ships its own Windows app. This one is an alternative to it:
 - **Night-plan aware.** Checks the server clock before starting, so outside 12:30–9:30 AM IST it tells you
   instead of booting the PC, and ends the session at the plan's cutoff like the official client.
 - **Network check** without starting the cloud PC, with a verdict and a bitrate suggestion for your settings.
+- **Controller check:** a drawn controller that mirrors every press, stick and trigger, with its ID, battery,
+  a vibration test and whether Moonlight will recognise it.
 - **In-stream overlay** on <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>A</kbd> with time left, live latency and Moonlight's shortcuts.
 - **Motion with a purpose:** the monitor powers on, the track fills step by step, and a failed sign-in shakes.
   Turning off animation effects in Windows turns it all off.
@@ -214,7 +235,7 @@ ANTCLOUD_PREVIEW=login ANTCLOUD_THEME=light ANTCLOUD_SNAPSHOT=login.png dotnet r
 
 | Variable | Values |
 |---|---|
-| `ANTCLOUD_PREVIEW` | `login`, `home:idle`, `home:queued`, `home:booting`, `home:ready`, `home:pairing`, `home:streaming`. Add `:stream`, `:network`, `:about`, `:overlay` or `:notice`. |
+| `ANTCLOUD_PREVIEW` | `login`, `home:idle`, `home:queued`, `home:booting`, `home:ready`, `home:pairing`, `home:streaming`. Add `:stream`, `:network`, `:controllers`, `:about`, `:overlay` or `:notice`, and `:sample` for a sample controller. |
 | `ANTCLOUD_THEME` | `light` or `dark` |
 | `ANTCLOUD_SNAPSHOT` | Saves the window as a PNG after it settles, then quits (`ANTCLOUD_SNAPSHOT_DELAY` sets the wait in seconds) |
 
@@ -252,6 +273,7 @@ Sign in ──▶ Start Cloud PC ──▶ queue ──▶ boot ──▶ ready
 | `Core/Stream/` | Moonlight runner and driver, microphone forwarding |
 | `Views/` | Sign-in, sidebar, Cloud PC, Stream, Network and About pages, the overlay window |
 | `Controls/` | The drawn monitor, connection track, aurora, latency charts and icons |
+| `Core/Controllers/` | XInput and raw-input controller support, and the controllers Moonlight recognises (from `scripts/update-controller-db.sh`) |
 | `scripts/package-windows.sh` | Builds the self-contained zip with portable Moonlight |
 
 Settings, the token and logs live in `%APPDATA%\AntCloud\`.
