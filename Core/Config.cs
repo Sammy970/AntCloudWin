@@ -21,7 +21,7 @@ static class Config
 
     /// This app's version: `0.<AntCloud release>.<our release>`, the same scheme as the Mac app. 0.16.x matches
     /// AntCloud's Windows app 0.016, whose API routes `ApiClient` uses. Keep in step with <Version> in the csproj.
-    public const string AppVersion = "0.16.1";
+    public const string AppVersion = "0.16.2";
 
     /// The AntCloud Windows client version this build matches, read from `AppVersion` (0.16.x → 0.016).
     public static double MatchedClientVersion

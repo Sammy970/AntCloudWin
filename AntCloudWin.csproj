@@ -8,7 +8,7 @@
     <AssemblyName>AntCloud</AssemblyName>
     <RootNamespace>AntCloud</RootNamespace>
     <!-- 0.<AntCloud release>.<our release>; keep in step with Config.AppVersion. -->
-    <Version>0.16.1</Version>
+    <Version>0.16.2</Version>
     <Product>AntCloud for Windows</Product>
     <ApplicationIcon>Assets/AntCloud.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
