@@ -36,9 +36,6 @@ partial class StreamPane : UserControl
 
         Overlay.IsChecked = StreamOverlayWindow.Enabled;
         Overlay.IsCheckedChanged += (_, _) => StreamOverlayWindow.Enabled = Overlay.IsChecked == true;
-
-        SkipNightPlan.IsChecked = SessionService.NightPlanMonitorDisabled;
-        SkipNightPlan.IsCheckedChanged += (_, _) => SessionService.NightPlanMonitorDisabled = SkipNightPlan.IsChecked == true;
     }
 }
 

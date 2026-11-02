@@ -113,7 +113,7 @@ sealed class SessionService : ObservableObject
     public async Task StartIfAllowed(StreamSettings settings, bool nightPlan)
     {
         if (Phase != Phase.Idle) return;
-        if (nightPlan && !NightPlanMonitorDisabled)
+        if (nightPlan)
         {
             var now = await Api.ServerTime() ?? DateTimeOffset.Now;
             if (!IsNightPlanWindow(now))
@@ -353,22 +353,9 @@ sealed class SessionService : ObservableObject
         if (nightPlanActive) StartNightPlanMonitor();
     }
 
-    /// When true, the client-side night-plan monitor is disabled (for testing). This does NOT affect the
-    /// server's own enforcement of night-plan hours; it only stops our local 9:35 check.
-    public static bool NightPlanMonitorDisabled
-    {
-        get => Preferences.Get<bool>("nightPlanMonitorDisabled");
-        set => Preferences.Set("nightPlanMonitorDisabled", value);
-    }
-
     /// Night plans are only valid 00:30–09:35 IST; end the session once the server clock passes the cutoff.
     private void StartNightPlanMonitor()
     {
-        if (NightPlanMonitorDisabled)
-        {
-            Log.Info("[session] night-plan monitor disabled by setting; not starting");
-            return;
-        }
         nightPlan?.Cancel();
         var cts = new CancellationTokenSource();
         nightPlan = cts;

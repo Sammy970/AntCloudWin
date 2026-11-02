@@ -55,12 +55,6 @@
                       Detail="Shows time left, connection health and Moonlight's shortcuts over the stream. Warnings appear on their own.">
           <ToggleSwitch x:Name="Overlay" OnContent="On" OffContent="Off" />
         </v:SettingRow>
-
-        <TextBlock Classes="section" Text="Developer" />
-        <v:SettingRow Icon="{x:Static c:Icons.Code}" Title="Skip night-plan checks"
-                      Detail="For testing. Skips the app's own hours check before starting and its 9:35 AM IST cutoff. AntCloud still enforces plan hours on its servers.">
-          <ToggleSwitch x:Name="SkipNightPlan" OnContent="On" OffContent="Off" />
-        </v:SettingRow>
       </StackPanel>
     </StackPanel>
   </ScrollViewer>
