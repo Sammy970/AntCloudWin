@@ -39,6 +39,7 @@ static class Config
     public const string CreatorName = "Samyak Jain";
     public const string CreatorGitHub = "https://github.com/Sammy970";
     public const string CreatorX = "https://x.com/Sammy_970";
+    public const string DiscordInvite = "https://discord.gg/GVDYtpWHps";
     public const string CreatorAvatar = "https://github.com/Sammy970.png?size=240";
     public const string MoonlightUrl = "https://moonlight-stream.org";
     public const string SourceUrl = "https://github.com/Sammy970/AntCloudWin";

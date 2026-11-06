@@ -19,6 +19,7 @@ partial class AboutPane : UserControl
         Matches.Text = $"Matches AntCloud's Windows app {Config.MatchedClientVersion:0.000}";
         MakerName.Text = Config.CreatorName;
         MakerInitial.Text = Config.CreatorName[..1];
+        Discord.Url = Config.DiscordInvite;
         Source.Url = Config.SourceUrl;
         Source.Detail = Config.SourceUrl.Replace("https://", "");
         _ = LoadAvatar();
@@ -45,6 +46,9 @@ sealed class LinkButton : Button
     public static readonly StyledProperty<Geometry?> IconProperty = AvaloniaProperty.Register<LinkButton, Geometry?>(nameof(Icon));
     public static readonly StyledProperty<bool> TileProperty = AvaloniaProperty.Register<LinkButton, bool>(nameof(Tile));
 
+    public static readonly StyledProperty<IBrush?> AccentProperty = AvaloniaProperty.Register<LinkButton, IBrush?>(nameof(Accent));
+
+    public IBrush? Accent { get => GetValue(AccentProperty); set => SetValue(AccentProperty, value); }
     public string Title { get => GetValue(TitleProperty); set => SetValue(TitleProperty, value); }
     public string? Detail { get => GetValue(DetailProperty); set => SetValue(DetailProperty, value); }
     public Geometry? Icon { get => GetValue(IconProperty); set => SetValue(IconProperty, value); }
@@ -83,7 +87,7 @@ sealed class LinkButton : Button
         if (change.Property == TitleProperty) title.Text = Title;
         if (change.Property == DetailProperty) { detail.Text = Detail; detail.IsVisible = Detail != null; }
         if (change.Property == IconProperty) glyph.Data = Icon;
-        if (change.Property == TileProperty) ApplyTile();
+        if (change.Property == TileProperty || change.Property == AccentProperty) ApplyTile();
     }
 
     /// Project links get the brand tile and sit flat in their card; profile links are plain buttons.
@@ -91,7 +95,7 @@ sealed class LinkButton : Button
     {
         if (Tile)
         {
-            tile.Background = new SolidColorBrush(Color.Parse("#4A86E8"));
+            tile.Background = Accent ?? new SolidColorBrush(Color.Parse("#4A86E8"));
             tile.Width = 30;
             glyph.Foreground = Brushes.White;
             Background = Brushes.Transparent;

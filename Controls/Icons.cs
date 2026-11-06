@@ -25,6 +25,7 @@ static class Icons
     public static readonly Geometry More = G("M5 12h.01 M12 12h.01 M19 12h.01");
     public static readonly Geometry ArrowUpRight = G("M7 7h10v10 M7 17L17 7");
     public static readonly Geometry Code = G("M16 18l6-6-6-6 M8 6l-6 6 6 6");
+    public static readonly Geometry Chat = G("M7.9 20A9 9 0 1 0 4 16.1L2 22z");
     public static readonly Geometry At = G("M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8z M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8");
     public static readonly Geometry Lock = G("M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z M7 11V7a5 5 0 0 1 10 0v4");
     public static readonly Geometry Tv = G("M4 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z M17 2l-5 5-5-5");

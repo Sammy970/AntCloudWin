@@ -22,6 +22,14 @@
         </Border>
       </StackPanel>
 
+      <!-- Community -->
+      <Border Classes="card" Padding="14" c:Reveal.Delay="0.04">
+        <StackPanel Spacing="8">
+          <v:LinkButton x:Name="Discord" Title="Join our Discord" Detail="Questions, bugs or ideas? Come and chat."
+                        Icon="{x:Static c:Icons.Chat}" Tile="True" Accent="#5865F2" />
+        </StackPanel>
+      </Border>
+
       <!-- Maker -->
       <Border Classes="card" Padding="18" c:Reveal.Delay="0.08">
         <StackPanel Spacing="16">
